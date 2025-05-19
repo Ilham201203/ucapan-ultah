@@ -1,10 +1,6 @@
 # ucapan-ultah
 buat chindiii
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>chindi cantik abiez</title>
+
     <style>
       body {
         margin: 0;
