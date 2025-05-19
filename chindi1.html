@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>chindi cantik abiez</title>
+    <style>
+      body {
+        margin: 0;
+        background: #e0f7fa;
+        font-family: "Segoe UI", sans-serif;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .gift {
+        width: 100px;
+        height: 100px;
+        background-color: #ff4081;
+        border-radius: 10px;
+        position: absolute;
+        top: 55%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        cursor: pointer;
+        animation: bounce 2s infinite, pulse 3s infinite alternate,
+          rotateBox 6s infinite linear;
+        z-index: 10;
+      }
+
+      .gift::before,
+      .gift::after {
+        content: "";
+        position: absolute;
+        background: white;
+      }
+
+      .gift::before {
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 10px;
+        height: 100%;
+      }
+
+      .gift::after {
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        width: 100%;
+        height: 10px;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translate(-50%, -50%) translateY(0);
+        }
+        50% {
+          transform: translate(-50%, -50%) translateY(-15px);
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(255, 64, 129, 0.7);
+        }
+        100% {
+          box-shadow: 0 0 15px 15px rgba(255, 64, 129, 0);
+        }
+      }
+
+      @keyframes rotateBox {
+        0% {
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(2deg);
+        }
+      }
+
+      .click-text {
+        position: absolute;
+        top: calc(55% + 70px);
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 18px;
+        color: #d81b60;
+        font-weight: bold;
+        animation: blink 1.5s infinite;
+        z-index: 9;
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      .slide-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.95);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+        z-index: 5;
+      }
+
+      .slide {
+        display: none;
+        font-size: 24px;
+        color: #d81b60;
+        margin-bottom: 20px;
+        max-width: 80%;
+        line-height: 1.6;
+      }
+
+      .slide.active {
+        display: block;
+      }
+
+      .next-button {
+        padding: 10px 20px;
+        background: #ff4081;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      .heart {
+        position: absolute;
+        top: -50px;
+        color: #f06292;
+        font-size: 24px;
+        animation: fall 6s linear infinite;
+      }
+
+      @keyframes fall {
+        to {
+          transform: translateY(110vh);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Background hearts -->
+    <div id="heartsContainer"></div>
+
+    <!-- Gift box -->
+    <div class="gift" id="giftBox" title="Klik untuk membuka hadiah!"></div>
+    <div class="click-text" id="clickText">Click here</div>
+
+    <!-- Slide container -->
+    <div class="slide-container" id="slideContainer">
+      <div class="slide active">
+        🎉 Selamat Ulang Tahun
+        <br /><br />
+        Chindiana Eka Fadila
+      </div>
+      <div class="slide">💖 i love you for everthing.</div>
+      <div class="slide">🌸 Jangan lupa senyum hari ini!</div>
+      <div class="slide">🎁 maaf kalo kurang bagus hehe</div>
+      <div class="slide">
+        Aku gatau gimana cara ngungkapinnya. I know I’m not perfect. Maaf kalau
+        aku belum bisa jadi seperti yang kamu harapkan. Tapi percayalah, aku
+        selalu berusaha jadi lebih baik setiap waktunya. Aku juga nggak tau apa
+        yang akan terjadi ke depannya, dan jalan apa yang akan kamu pilih
+        nantinya. Kalau pun nanti jalan yang kamu pilih bukan aku, it’s okay
+        kok. Aku tetap akan ada di sini untuk kamu.
+        <br /><br />
+        Selamat ulang tahun, ya. Di hari spesialmu ini, aku cuma mau kamu tau
+        satu hal: kamu itu berharga. Kamu pantas dapet kebahagiaan
+        sebesar-besarnya, di mana pun dan dengan siapa pun kamu berada. Semoga
+        semua hal baik datang padamu, hari ini dan seterusnya. Dan kalau suatu
+        hari kamu butuh seseorang, aku masih orang yang sama yang akan tetap
+        peduli.
+      </div>
+      <button class="next-button" id="nextBtn">Next</button>
+    </div>
+
+    <!-- Musik -->
+    <audio id="bgMusic" loop>
+      <source
+        src="NIKI - Youll Be in My Heart _ Lirik Terjemahan Indonesia.mp3"
+        type="audio/mpeg"
+      />
+      Browser kamu tidak mendukung pemutar audio.
+    </audio>
+
+    <script>
+      const giftBox = document.getElementById("giftBox");
+      const slideContainer = document.getElementById("slideContainer");
+      const slides = document.querySelectorAll(".slide");
+      const nextBtn = document.getElementById("nextBtn");
+      const bgMusic = document.getElementById("bgMusic");
+      const heartsContainer = document.getElementById("heartsContainer");
+      const clickText = document.getElementById("clickText");
+
+      let currentSlide = 0;
+
+      giftBox.addEventListener("click", () => {
+        slideContainer.style.display = "flex";
+        giftBox.style.display = "none";
+        clickText.style.display = "none";
+        bgMusic.play();
+      });
+
+      nextBtn.addEventListener("click", () => {
+        slides[currentSlide].classList.remove("active");
+        currentSlide++;
+
+        if (currentSlide < slides.length) {
+          slides[currentSlide].classList.add("active");
+        } else {
+          slideContainer.style.display = "none";
+        }
+      });
+
+      // Generate falling hearts
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = 4 + Math.random() * 3 + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 7000);
+      }
+
+      setInterval(createHeart, 500);
+    </script>
+  </body>
+</html>
